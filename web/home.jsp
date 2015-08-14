@@ -4,6 +4,7 @@
     Author     : 31400817
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -12,12 +13,9 @@
         <title>Aula1-Home</title>
     </head>
     <body>
-        <h1>Bem Vindo, 
+        <h1>Bem Vindo, <c:out value="${username}"></c:out>
         
-        <%  
-        String user = request.getSession().getAttribute("username").toString();
-        out.print(user);
-        %>            
+                    
             
         </h1>
     </body>
