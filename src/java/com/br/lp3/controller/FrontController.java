@@ -12,6 +12,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -42,10 +43,13 @@ public class FrontController extends HttpServlet {
                 if(command.endsWith("login")){
                  //Login
                     
-                    LoginManager lm = new LoginManager(username, senha);
-                    if(lm.authorize()){
-                        RequestDispatcher rd = request.getRequestDispatcher("/home.jsp");
-                        rd.forward(request, response);
+                    if(LoginManager.authorize(username,senha)){
+                        HttpSession session = request.getSession();
+                        session.setAttribute("username", username);
+                        
+                        //request.getSession().setAttribute("username", username);
+                        
+                        request.getRequestDispatcher("/home.jsp").forward(request, response);
                     }
                     else{
                         out.println("você é burro, cara ._.");
