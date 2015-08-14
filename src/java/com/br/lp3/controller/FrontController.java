@@ -7,6 +7,7 @@ package com.br.lp3.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -39,7 +40,16 @@ public class FrontController extends HttpServlet {
                 //AÇÕES DE LOGIN
                 
                 if(command.endsWith("login")){
+                 //Login
                     
+                    LoginManager lm = new LoginManager(username, senha);
+                    if(lm.authorize()){
+                        RequestDispatcher rd = request.getRequestDispatcher("/home.jsp");
+                        rd.forward(request, response);
+                    }
+                    else{
+                        out.println("você é burro, cara ._.");
+                    }
                     
                     
                 }
@@ -77,7 +87,7 @@ public class FrontController extends HttpServlet {
             throws ServletException, IOException {
     
         command = request.getParameter("command");
-        username = request.getParameter("username");
+        username = request.getParameter("nome");
         senha = request.getParameter("senha");
                 
         processRequest(request, response);
